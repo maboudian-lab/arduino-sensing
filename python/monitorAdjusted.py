@@ -6,8 +6,10 @@ Isaac Zakaria
 Gordon Guo
 01 November 2021
 
-Rev: 14 December 2022
-Updated to monitor time from Arduino instead of from Python
+Rev: 24 January 2022
+Updated to monitor time from Arduino instead of from Python.
+Fixed issues where data logging isn't synchronized with Arduino output, causing premature termination.
+Added comments.
 """
 
 import serial
@@ -15,43 +17,44 @@ import time
 import csv
 import numpy as np
 
-# port = '/dev/ttyACM0'
-# port = 'COM4'   
-port = '/dev/cu.usbmodem21201'
+# port = '/dev/ttyACM0' # Debian
+# port = 'COM4' # Windows
+port = '/dev/cu.usbmodem21201' # MacOS
 
 def figaroMonitor(filename, runtime, port=port, baudrate=9600, activePins=[0,1,2,3,4,5,6,7,8]):
+    """
+    filename: CSV file to save to
+    runtime: desired runtime in minutes
+    port: serial port to listen to
+    """
     
-    calibration = 0
+    runtime = (runtime/60)*10**(3) # convert runtime from minutes to milliseconds
+    
+    calibration = np.inf
 
-    arduino = serial.Serial(port=port, timeout=1, baudrate=baudrate)
+    arduino = serial.Serial(port=port, timeout=1, baudrate=baudrate) # initialize arduino object
     
-    with open(filename, 'w', newline='') as csvfile:
+    with open(filename, 'w', newline='') as csvfile: # generate CSV to store data
         fieldnames = ('t','0','1','2','3','6','7','H','T')
         readoutDict = {}
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         
         writer.writeheader()
-        readoutDict['t'] = 0.0
         while True:
-                b = arduino.readline()
-                s = b.decode()
-                # print(len(s))
-                if len(s) == 0:
+                b = arduino.readline() # get serial output
+                s = b.decode() # generate string from serial output
+                if len(s) == 0: # don't start logging until the beginning of a complete chunk of data
                     break
-        while readoutDict['t'] <= runtime:
-
+        while readoutDict['t'] - calibration <= runtime:
             for k in activePins:
                 b = arduino.readline()
                 s = b.decode()
                 print(s)
-                if len(s) != 0:
+                if len(s) != 0: # prevents Python from trying to record empty lines in serial output
                     readoutDict[s[0]] = float(s[1:])
-                # if calibration == 0:
-                #     calibration = readoutDict['t']/1000;
-                # readoutDict['t'] = readoutDict['t']/1000 - calibration
+                if calibration != np.inf: # save first absolute time for tracking runtime
+                    calibration = readoutDict['t']/1000
             writer.writerow(readoutDict)
-            # readoutDict['t'] = time.monotonic() - t0
-            # print('-')
     
     arduino.close()
     
