@@ -14,3 +14,8 @@ Arduino and Python codes for monitoring sensors and recording data.
 - Adafruit Feather OLED (126x64 OLED display support)
 - Adafruit BME680 (Adafruit Bosch BME680/688 support)
 - Adafruit SCD30 (Adafruit Sensirion SCD30 support)
+
+### Python dependencies:
+- pySerial
+- csv
+- NumPy
