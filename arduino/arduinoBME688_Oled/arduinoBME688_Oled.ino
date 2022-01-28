@@ -2,11 +2,12 @@
  Isaac Zakaria
  Gordon Guo
  1 November 2021
- Rev: 19 January 2022
+ Rev: 28 January 2022
  Board: Adafruit Feather Adalogger M0
  
  Monitor voltages from pins A0, A1, A2, A3, A6, A7 with moving-average filter
- Monitor BME280 RH and temperature
+ Monitor BME688 RH, temperature, and VOC sensor resistance
+ Monitor SCD30 RH, temperature, and NDIR CO2 concentration
  [Pins A4 (SDA), A5 (SCL) are skipped when reading voltages]
  */
 
@@ -236,7 +237,7 @@ void loop()
     { // output sensor voltages after every windowSize readings
       vOut[j] = (vOut[j] / denominator) * conversion;
       Serial.print(pinIndex[j]);
-      Serial.print(" ");
+      Serial.print("  ");
       Serial.println(vOut[j]);
       vOut[j] = 0;
     }
@@ -260,25 +261,25 @@ void loop()
     scdCO2 = scd30.CO2;
 
     // print to serial
-    Serial.print("H ");
+    Serial.print("HB ");
     Serial.println(bmeRh);
 
-    Serial.print("T ");
+    Serial.print("TB ");
     Serial.println(bmeTemp);
 
-    Serial.print("V ");
+    Serial.print("RB ");
     Serial.println(bmeVoc);
 
-    Serial.print("H ");
+    Serial.print("HS ");
     Serial.println(scdRh);
 
-    Serial.print("T ");
+    Serial.print("TS ");
     Serial.println(scdTemp);
 
-    Serial.print("C ");
+    Serial.print("CS ");
     Serial.println(scdCO2);
 
-    Serial.print("t ");
+    Serial.print("t  ");
     Serial.println(timeOfEst);
 
     // print to display
