@@ -6,14 +6,14 @@ Isaac Zakaria
 Gordon Guo
 01 November 2021
 
-Rev: 24 January 2022
+Rev: 31 January 2022
 Updated to monitor time from Arduino instead of from Python.
 Fixed issues where data logging isn't synchronized with Arduino output, causing premature termination.
 Added comments.
 """
 
 import serial
-import time
+# import time
 import csv
 import numpy as np
 
@@ -28,14 +28,15 @@ def figaroMonitor(filename, runtime, port=port, baudrate=9600, activePins=[0,1,2
     port: serial port to listen to
     """
     
-    runtime = (runtime/60)*10**(3) # convert runtime from minutes to milliseconds
+    runtime = runtime*60*10**3 # convert runtime from minutes to milliseconds
     
-    calibration = np.inf
+    t0 = np.inf
+    t = 0
 
     arduino = serial.Serial(port=port, timeout=1, baudrate=baudrate) # initialize arduino object
     
     with open(filename, 'w', newline='') as csvfile: # generate CSV to store data
-        fieldnames = ('t','0','1','2','3','6','7','H','T')
+        fieldnames = ('t ','0 ','1 ','2 ','3 ','6 ','7 ','HB','TB','RB','HS','TS','CS')
         readoutDict = {}
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         
@@ -45,15 +46,16 @@ def figaroMonitor(filename, runtime, port=port, baudrate=9600, activePins=[0,1,2
                 s = b.decode() # generate string from serial output
                 if len(s) == 0: # don't start logging until the beginning of a complete chunk of data
                     break
-        while readoutDict['t'] - calibration <= runtime:
-            for k in activePins:
+        while t - t0 <= runtime: # note: Arduino reports absolute time in milliseconds
+            for k in range(len(fieldnames)):
                 b = arduino.readline()
                 s = b.decode()
                 print(s)
                 if len(s) != 0: # prevents Python from trying to record empty lines in serial output
-                    readoutDict[s[0]] = float(s[1:])
-                if calibration != np.inf: # save first absolute time for tracking runtime
-                    calibration = readoutDict['t']/1000
+                    readoutDict[s[0:2]] = float(s[2:])
+                t = readoutDict['t']
+                if t0 == np.inf:
+                    t0 = np.copy(t) # save first absolute time for tracking runtime
             writer.writerow(readoutDict)
     
     arduino.close()
