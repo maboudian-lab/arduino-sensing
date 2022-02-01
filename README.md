@@ -14,7 +14,7 @@ Arduino and Python codes for monitoring sensors and recording data.
 
 Add Adafruit boards to Arduino IDE by adding
 
-https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
+`https://adafruit.github.io/arduino-board-index/package_adafruit_index.json`
 
 as an Additional Board Manager URL under Preferences.
 
@@ -27,3 +27,5 @@ as an Additional Board Manager URL under Preferences.
 - pySerial
 - csv
 - NumPy
+
+NumPy and csv should come bundled with a standard Anaconda installation.
