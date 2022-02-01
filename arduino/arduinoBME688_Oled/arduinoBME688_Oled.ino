@@ -135,7 +135,7 @@ int i = 0;
 // Array of analog pin indices
 int pinIndex[6] = {0, 1, 2, 3, 6, 7};
 
-int timeOfEst = 0;
+unsigned long timeOfEst = 0;
 
 int weights[len];
 
