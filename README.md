@@ -31,10 +31,14 @@ as an Additional Board Manager URL under Preferences.
 NumPy and csv should come bundled with a standard Anaconda installation.
 
 #### Hardware setup
-Connect all commercial sensors via I2C.
+Connect all commercial sensors via I2C. For Adafruit STEMMA QT cables:
+- Yellow: SCL
+- Blue: SDA
+- Red: 3.3 V or 5 V
+- Black: GND
 
 ### BME280/680:
 ![BME280 connections for I2C.](https://cdn-learn.adafruit.com/assets/assets/000/097/118/original/adafruit_products_BME280_arduino_I2C_STEMMA_bb.jpg?1605726553)
 
-### SCD30
+### SCD30:
 ![SCD30 connections for I2C.](https://cdn-learn.adafruit.com/assets/assets/000/098/479/original/adafruit_products_SCD30_arduino_I2C_STEMMA_bb.jpg?1609893467)
