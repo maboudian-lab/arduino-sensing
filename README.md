@@ -12,6 +12,12 @@ Arduino and Python codes for monitoring sensors and recording data.
 - Adafruit SAMD Boards (Adafruit Feather M0 support)
 - Adafruit nRF52 (Adafruit nRF52840 Feather support)
 
+Add Adafruit boards to Arduino IDE by adding
+
+https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
+
+as an Additional Board Manager URL under Preferences.
+
 #### Libraries
 - Adafruit Feather OLED (126x64 OLED display support)
 - Adafruit BME680 (Adafruit Bosch BME680/688 support)
