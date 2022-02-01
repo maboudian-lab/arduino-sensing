@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Monitor voltages from pins A0 through A3 and A6, A7 alongside humidity and temperature from BME280
+DEPRECATED! USE monitorNoFigaro instead!
 
 Isaac Zakaria
 Gordon Guo
