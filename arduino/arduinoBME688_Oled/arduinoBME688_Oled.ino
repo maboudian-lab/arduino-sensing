@@ -2,7 +2,7 @@
  Isaac Zakaria
  Gordon Guo
  1 November 2021
- Rev: 28 January 2022
+ Rev: 3 February 2022
  Board: Adafruit Feather Adalogger M0
  
  Monitor voltages from pins A0, A1, A2, A3, A6, A7 with moving-average filter
@@ -10,23 +10,6 @@
  Monitor SCD30 RH, temperature, and NDIR CO2 concentration
  [Pins A4 (SDA), A5 (SCL) are skipped when reading voltages]
  */
-
-/***************************************************************************
-  This is a library for the BME680 gas, humidity, temperature & pressure sensor
-
-  Designed specifically to work with the Adafruit BME680 Breakout
-  ----> http://www.adafruit.com/products/3660
-
-  These sensors use I2C or SPI to communicate, 2 or 4 pins are required
-  to interface.
-
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit and open-source hardware by purchasing products
-  from Adafruit!
-
-  Written by Limor Fried & Kevin Townsend for Adafruit Industries.
-  BSD license, all text above must be included in any redistribution
- ***************************************************************************/
 
 /*
  * LIBRARIES
@@ -228,6 +211,12 @@ void loop()
   //  if(!digitalRead(BUTTON_B)) display.print("B");
   //  if(!digitalRead(BUTTON_C)) display.print("C");
 
+    if (i == (windowSize - 1))
+    {
+      Serial.println("x");
+      timeOfEst = millis();
+    }
+
   for (int j = 0; j < 6; j++)
   {
     analogOut[i][j] = analogRead(pinIndex[j]); // read new analog values and overwrite old value outside of windowSize
@@ -235,17 +224,13 @@ void loop()
 
     if (i == (len - 1))
     { // output sensor voltages after every windowSize readings
+
       vOut[j] = (vOut[j] / denominator) * conversion;
       Serial.print(pinIndex[j]);
       Serial.print("  ");
       Serial.println(vOut[j]);
       vOut[j] = 0;
     }
-  }
-
-  if (i == (windowSize - 1))
-  {
-    timeOfEst = millis();
   }
 
   if (i == (len - 1))
