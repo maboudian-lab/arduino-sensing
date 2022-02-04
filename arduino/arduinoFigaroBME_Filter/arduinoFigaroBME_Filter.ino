@@ -87,35 +87,36 @@ void setup() {
 }
 
 void loop() {
+    if (i == (windowSize - 1))
+    {
+      Serial.println("x");
+      timeOfEst = millis();
+    }
+    
   for (int j = 0; j < 6; j++) {
     analogOut[i][j] = analogRead(pinIndex[j]); // read new analog values and overwrite old value outside of windowSize
     vOut[j] += weights[i] * analogOut[i][j]; // update moving-average filter sum
 
     if (i == (len-1)) { // output sensor voltages after every windowSize readings
       vOut[j] = (vOut[j]/denominator)*conversion;
-      // Serial.print("yay");
       Serial.print(pinIndex[j]);
-      Serial.print(" ");
+      Serial.print("  ");
       Serial.println(vOut[j]);
       vOut[j] = 0;
     }
   }
 
-  if (i == (windowSize-1)) {
-    timeOfEst = millis();
-  }
-
   if (i == (len-1)) { // output temperature and RH after every windowSize readings
-    Serial.print("H ");
+    Serial.print("HB  ");
     Serial.println(bme.readHumidity());
     
-    Serial.print("T ");
+    Serial.print("TB  ");
     Serial.println(bme.readTemperature());
 
-//    Serial.println();
-
-    Serial.print("t ");
+    Serial.print("t  ");
     Serial.println(timeOfEst);
+
+    Serial.println("y");
   }
 
   i = (i+1) % len;
