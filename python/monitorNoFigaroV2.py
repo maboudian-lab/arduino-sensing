@@ -12,7 +12,7 @@ import numpy as np
 
 # port = '/dev/ttyACM0' # Debian
 # port = 'COM4' # Windows
-port = '/dev/cu.usbmodem21401' # MacOS
+port = '/dev/cu.usbmodem21201' # MacOS
 
 def figaroMonitor(filename, runtime, port=port, baudrate=115200, analogPins=False, bme=280, scd=False, verbose=False):
     """
@@ -78,4 +78,4 @@ def figaroMonitor(filename, runtime, port=port, baudrate=115200, analogPins=Fals
 
     arduino.close()
     
-figaroMonitor('null.csv', 0.1, port=port, analogPins=True, bme=680, scd=True)
+figaroMonitor('null.csv', 0.1, port=port, baudrate=9600, analogPins=True, bme=280, scd=False)
