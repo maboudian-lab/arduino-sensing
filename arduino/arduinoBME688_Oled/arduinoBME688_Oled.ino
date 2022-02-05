@@ -1,19 +1,19 @@
 /*
- Isaac Zakaria
- Gordon Guo
- 1 November 2021
- Rev: 3 February 2022
- Board: Adafruit Feather Adalogger M0
- 
- Monitor voltages from pins A0, A1, A2, A3, A6, A7 with moving-average filter
- Monitor BME688 RH, temperature, and VOC sensor resistance
- Monitor SCD30 RH, temperature, and NDIR CO2 concentration
- [Pins A4 (SDA), A5 (SCL) are skipped when reading voltages]
- */
+  Isaac Zakaria
+  Gordon Guo
+  1 November 2021
+  Rev: 3 February 2022
+  Board: Adafruit Feather Adalogger M0
+
+  Monitor voltages from pins A0, A1, A2, A3, A6, A7 with moving-average filter
+  Monitor BME688 RH, temperature, and VOC sensor resistance
+  Monitor SCD30 RH, temperature, and NDIR CO2 concentration
+  [Pins A4 (SDA), A5 (SCL) are skipped when reading voltages]
+*/
 
 /*
- * LIBRARIES
- */
+   LIBRARIES
+*/
 
 #include <Wire.h>
 #include <SPI.h>
@@ -30,8 +30,8 @@
 #include <Adafruit_SH110X.h>
 
 /*
- * USER-SPECIFIED PARAMETERS
- */
+   USER-SPECIFIED PARAMETERS
+*/
 
 // Baud rate
 #define baudRate 115200
@@ -40,8 +40,8 @@
 #define delayTime 5
 
 /*
- * ADAFRUIT FEATHERWING 64x128 OLED SETUP
- */
+   ADAFRUIT FEATHERWING 64x128 OLED SETUP
+*/
 
 // 64x128 OLED FeatherWing
 Adafruit_SH1107 display = Adafruit_SH1107(64, 128, &Wire);
@@ -74,8 +74,8 @@ Adafruit_SH1107 display = Adafruit_SH1107(64, 128, &Wire);
 #endif
 
 /*
- * ADAFRUIT SENSOR SETUP
- */
+   ADAFRUIT SENSOR SETUP
+*/
 
 #define BME_SCK 13
 #define BME_MISO 12
@@ -211,11 +211,10 @@ void loop()
   //  if(!digitalRead(BUTTON_B)) display.print("B");
   //  if(!digitalRead(BUTTON_C)) display.print("C");
 
-    if (i == (windowSize - 1))
-    {
-      Serial.println("x");
-      timeOfEst = millis();
-    }
+  if (i == (len - 1))
+  {
+    Serial.println("x");
+  }
 
   for (int j = 0; j < 6; j++)
   {
@@ -264,6 +263,7 @@ void loop()
     Serial.print("CS ");
     Serial.println(scdCO2);
 
+    timeOfEst = millis();
     Serial.print("t  ");
     Serial.println(timeOfEst);
 
@@ -291,6 +291,11 @@ void loop()
 
 
     display.display();
+  }
+
+  if (i == (len - 1))
+  {
+    Serial.println("y");
   }
 
   i = (i + 1) % len;
