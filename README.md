@@ -28,6 +28,9 @@ as an Additional Board Manager URL under Preferences.
 - csv
 - NumPy
 
+### Port Identification
+On macos, when running python code for BME the correct port must be identified. To do so, open the terminal, and type ' ls /dev/tty.usb* ' which will return a list of the port connections appearing like: /dev/tty.usbmodem141101 The last numbers are the port number, which are used to identify the port that python reads (you must correctly identify the port in the python code) 
+
 NumPy and csv should come bundled with a standard Anaconda installation.
 
 #### Hardware setup
