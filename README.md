@@ -27,8 +27,15 @@ as an Additional Board Manager URL under Preferences.
 - pySerial
 - csv
 - NumPy
-
 NumPy and csv should come bundled with a standard Anaconda installation.
+
+
+### SD Card Setup 
+-You must format the sd card, instructions can be found here: https://learn.adafruit.com/adafruit-adalogger-featherwing/using-the-sd-card
+-If the SD card needs to be reformatted download SD Card Formatter from https://www.sdcard.org/downloads/formatter/ and read the associated instructions manual to do so 
+-Arduino Code must include 
+#include <SD.h>               // Needed for SD Card writting
+File myFile;                  // Identify the file type 
 
 #### Hardware setup
 Connect all commercial sensors via I2C. For Adafruit STEMMA QT cables:
