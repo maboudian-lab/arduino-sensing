@@ -39,6 +39,7 @@ Connect all commercial sensors via I2C. For Adafruit STEMMA QT cables:
 
 ### BME280/680:
 ![BME280 connections for I2C.](https://cdn-learn.adafruit.com/assets/assets/000/097/118/original/adafruit_products_BME280_arduino_I2C_STEMMA_bb.jpg?1605726553)
+https://cdn-shop.adafruit.com/product-files/3660/BME680.pdf documentation regarding the BME 680 Sensor component 
 
 ### SCD30:
 ![SCD30 connections for I2C.](https://cdn-learn.adafruit.com/assets/assets/000/098/479/original/adafruit_products_SCD30_arduino_I2C_STEMMA_bb.jpg?1609893467)
