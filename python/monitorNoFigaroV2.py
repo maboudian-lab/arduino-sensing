@@ -3,7 +3,7 @@
 Isaac Zakaria
 4 February 2022
 
-Rev: 4 February 2022
+Rev: 25 February 2022
 """
 
 import serial
@@ -78,4 +78,4 @@ def figaroMonitor(filename, runtime, port=port, baudrate=115200, analogPins=Fals
 
     arduino.close()
     
-figaroMonitor('null.csv', 0.1, port=port, baudrate=9600, analogPins=True, bme=280, scd=False)
+figaroMonitor('null.csv', 1.0, port=port, analogPins=True, bme=680, scd=False)
