@@ -6,6 +6,10 @@ Arduino and Python codes for monitoring sensors and recording data.
 - Adafruit Feather M0 Adalogger
 - Adafruit nRF52840 Feather (BLE)
 
+## Adafruit Feather M0 Adalogger 
+Description of pins and hardware overview: https://learn.adafruit.com/adafruit-feather-m0-adalogger/using-the-sd-card?view=all
+Pinout diagram available here: https://github.com/adafruit/Adafruit-Feather-M0-Adalogger-PCB/blob/master/Adafruit%20Feather%20M0%20Adalogger%20Pinout.pdf
+
 ### Arduino dependencies:
 #### Boards
 - Arduino Mbed OS Nano Boards (Arduino Nano 33 BLE support)
