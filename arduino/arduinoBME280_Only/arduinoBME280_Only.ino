@@ -1,7 +1,7 @@
 /*
  Isaac Zakaria
  1 February 2022
- Rev: 1 February 2022
+ Rev: 14 March 2022 (happy pi day!)
  Board: Adafruit nRF52840 Feather
  
  Monitor BME280.
@@ -80,6 +80,7 @@ void loop() {
     Serial.println("x");
     printValues();
     delay(delayTime);
+    Serial.println("y");
 }
 
 
