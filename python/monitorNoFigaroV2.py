@@ -77,5 +77,4 @@ def figaroMonitor(filename, runtime, port=port, baudrate=115200, analogPins=Fals
             print("")
 
     arduino.close()
-    
-# figaroMonitor('null.csv', 1.0, port=port, analogPins=True, bme=680, scd=False)
+
